@@ -5,36 +5,36 @@ function find() {
 }
 
 function findById(id) {
-    if (db('schemes').where({ id })) {
-        return db('schemes').where({ id }).first()
-    } else {
-        return null
-    }
+    return db('schemes')
+        .where({ id })
+        .first()
+}
+
+
+function add(user) {
+    return db('schemes')
+        .insert(user)
+        .then(idArray => {
+            return findById(idArray[0])
+        })
+        .catch(err => {
+            console.log(err)
+        })
     
 }
 
-function add(user) {
-    db('schemes').insert(user)
-        .then(ids => {
-            return findById(ids[0])
-        })
-}
-
 function update(changes, id) {
-    db('schemes').where({ id }).update(changes)
-        .then(ids => {
-            return findById(ids[0])
+    return db('schemes')
+        .where({ id })
+        .update(changes)
+        .then(numChanged => {
+            return findById(id)
         })
+        .catch(err => console.log(err))
 }
 
 function remove(id) {
-
-    db('schemes').findById(id)
-        .then(schema => {
-            const deleted = schema
-        })
-    db('schemes').where({ id }).del()
-    return deleted
+    return db('schemes').where({ id }).del()
 }
 
 module.exports = {

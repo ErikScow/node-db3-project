@@ -1,12 +1,12 @@
 const db = require('../db-config')
 
 function find() {
-   return db('schemas')
+   return db('schemes')
 }
 
 function findById(id) {
-    if (db('schemas').where({ id })) {
-        return db('schemas').where({ id }).first()
+    if (db('schemes').where({ id })) {
+        return db('schemes').where({ id }).first()
     } else {
         return null
     }
@@ -14,14 +14,14 @@ function findById(id) {
 }
 
 function add(user) {
-    db('schema').insert(user)
+    db('schemes').insert(user)
         .then(ids => {
             return findById(ids[0])
         })
 }
 
 function update(changes, id) {
-    db('schema').where({ id }).update(changes)
+    db('schemes').where({ id }).update(changes)
         .then(ids => {
             return findById(ids[0])
         })
@@ -29,11 +29,11 @@ function update(changes, id) {
 
 function remove(id) {
 
-    db('schema').findById(id)
+    db('schemes').findById(id)
         .then(schema => {
             const deleted = schema
         })
-    db('schema').where({ id }).del()
+    db('schemes').where({ id }).del()
     return deleted
 }
 
